@@ -11,9 +11,10 @@ import StatsNavigation from './stats-navigation';
 
 export default class Stats extends Component {
 	render() {
+		const { type } = this.props;
 		return (
 			<Main className="woocommerce stats" wideLayout={ true }>
-				<StatsNavigation />
+				<StatsNavigation type={ type } />
 			</Main>
 		);
 	}
