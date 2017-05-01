@@ -21,23 +21,25 @@ import FollowingManageSubscriptions from './subscriptions';
 import FollowingManageSearchFeedsResults from './feed-search-results';
 import MobileBackToSidebar from 'components/mobile-back-to-sidebar';
 import { requestFeedSearch } from 'state/reader/feed-searches/actions';
+import { addQueryArgs } from 'lib/url';
 
 class FollowingManage extends Component {
 	static propTypes = {
 		sitesQuery: PropTypes.string,
 		subsQuery: PropTypes.string,
 		translate: PropTypes.func,
+		showMoreResults: PropTypes.bool,
 	};
 
 	static defaultProps = {
 		subsQuery: '',
 		sitesQuery: '',
+		showMoreResults: false,
 	}
 
 	state = {
 		width: 800,
 		forceRefresh: false,
-		showMoreResults: false,
 	};
 
 	// TODO make this common between our different search pages?
@@ -103,10 +105,12 @@ class FollowingManage extends Component {
 	}
 
 	fetchNextPage = offset => this.props.requestFeedSearch( this.props.sitesQuery, offset );
-	handleShowMoreClicked = () => this.setState( { showMoreResults: true } );
+	handleShowMoreClicked = () => {
+		page.replace( addQueryArgs( { showMoreResults: true }, window.location.pathname + window.location.search ) );
+	}
 
 	render() {
-		const { sitesQuery, subsQuery, translate, searchResults } = this.props;
+		const { sitesQuery, subsQuery, translate, searchResults, showMoreResults } = this.props;
 		const searchPlaceholderText = translate( 'Search millions of sites' );
 
 		return (
@@ -136,7 +140,7 @@ class FollowingManage extends Component {
 				{ !! sitesQuery && (
 					<FollowingManageSearchFeedsResults
 						searchResults={ searchResults }
-						showMoreResults={ this.state.showMoreResults }
+						showMoreResults={ showMoreResults }
 						showMoreResultsClicked={ this.handleShowMoreClicked }
 						width={ this.state.width }
 						fetchNextPage={ this.fetchNextPage }
