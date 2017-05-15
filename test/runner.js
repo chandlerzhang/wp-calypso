@@ -49,12 +49,14 @@ if ( process.env.CIRCLECI ) {
 	// why 10 seconds? a guess.
 	mocha.suite.timeout( 10000 );
 }
+mocha.suite.timeout( 100000 );
 
 mocha.suite.beforeAll( boot.before );
 mocha.suite.afterAll( boot.after );
 
 files = program.args.length ? program.args : [ process.env.TEST_ROOT ];
 files = files.reduce( ( memo, filePath ) => {
+	console.log('memo: %s file: %s', memo, filePath)
 	// Validate test root matches specified file paths
 	if ( ! filePath.startsWith( process.env.TEST_ROOT ) ) {
 		console.warn(
@@ -129,7 +131,10 @@ if ( program.nodeTotal > 1 ) {
 	} );
 }
 
-files.forEach( setup.addFile );
+files.forEach( file => {
+	console.log( 'type: %s, %s', typeof file, file );
+	setup.addFile( file );
+} );
 
 mocha.addFile( path.join( __dirname, 'load-suite.js' ) );
 

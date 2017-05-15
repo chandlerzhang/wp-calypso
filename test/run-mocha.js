@@ -8,3 +8,8 @@ const boot = require( './boot-test' );
 before( boot.before );
 after( boot.after );
 require( './load-suite.js' );
+// const path = require( 'path' );
+// const p = path.join( 'test', 'test', 'helpers', 'use-nock', 'test', 'index.js' );
+// console.log( p );
+// const setup = require( './setup' );
+// setup.addFile( 'client' );

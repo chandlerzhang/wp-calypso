@@ -5,7 +5,7 @@ const child_process = require( 'child_process' );
 const engines = require( '../package' ).engines;
 
 const hasAllowedNodeVersion = semver.satisfies( process.version, engines.node );
-const results = child_process.spawnSync( 'npm', [ '-v' ], { encoding : 'utf8' } );
+const results = child_process.spawnSync( process.platform === 'win32' ? 'npm.cmd' : 'npm', [ '-v' ], { encoding : 'utf8' } );
 const hasAllowedNpmVersion = results.stdout && semver.satisfies( results.stdout, engines.npm );
 
 if ( ! hasAllowedNodeVersion || ! hasAllowedNpmVersion ) {
