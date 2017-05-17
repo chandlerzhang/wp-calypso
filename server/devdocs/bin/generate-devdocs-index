@@ -16,13 +16,21 @@ var fs = require( 'fs' ),
 
 function main() {
 	// extract list of files to index and remove leading ./'s
-	var fileList = process.
-		argv.
-		splice( 2, process.argv.length ).
-		map( function ( fileWithPath ) {
+	var fileList = fs
+        .readFileSync(process.argv[2], 'utf8')
+        .split('\n')
+        .filter(v => v.length > 0)
+		.map( function ( fileWithPath ) {
 			return fileWithPath.replace( /^\.\//, '' );
 		} );
 
+	// var fileList = process.
+	// 	argv.
+	// 	splice( 2, process.argv.length ).
+	// 	map( function ( fileWithPath ) {
+	// 		return fileWithPath.replace( /^\.\//, '' );
+	// 	} );
+    //
 	if( fileList.length === 0 ) {
 		process.stderr.write( 'You must pass a list of files to process (try "make server/devdocs/search-index.js"' );
 		process.exit( 1 );

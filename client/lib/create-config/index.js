@@ -23,6 +23,7 @@
  * @returns {*} value of property named by the key
  */
 const config = data => key => {
+	console.log( 'config data is:', data );
 	if ( key in data ) {
 		return data[ key ];
 	}
@@ -30,7 +31,7 @@ const config = data => key => {
 	if ( 'development' === process.env.NODE_ENV ) {
 		throw new ReferenceError(
 			`Could not find config value for key '${ key }'\n` +
-			`Please make sure that if you need it then it has a default value assigned in 'config/_shared.json'`
+			'Please make sure that if you need it then it has a default value assigned in \'config/_shared.json\''
 		);
 	}
 

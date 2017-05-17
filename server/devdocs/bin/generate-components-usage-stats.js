@@ -45,7 +45,7 @@ function main() {
 		process.stderr.write( 'You must pass a list of files to process (try "make server/devdocs/components-usage-stats.js"' );
 		process.exit( 1 );
 	}
-	console.log('config is %s', config)
+	// console.log('config is %s', config)
 
 	if ( ! config.isEnabled( 'devdocs/components-usage-stats' ) ) {
 		saveUsageStats( {}, outFilePath );
