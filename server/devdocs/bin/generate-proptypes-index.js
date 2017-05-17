@@ -111,6 +111,8 @@ const readFile = ( filePath ) => {
  * @param {string} filePath The path to read
  */
 const processFile = ( filePath ) => {
+	// console.log(`file path is %s`, filePath)
+	if(filePath.length < 1) return null;
 	const filename = path.basename( filePath );
 	const includePathRegEx = new RegExp(`^client${ path.sep }(.*?)${ path.sep }${ filename }$`);
 	const includePathSuffix = ( filename === 'index.jsx' ? '' : path.sep + path.basename( filename, '.jsx' ) );
@@ -179,12 +181,20 @@ const writeFile = ( contents ) => {
 
 const main = ( () => {
 	console.log( 'Building: proptypes-index.json' );
-	const fileList = process
-		.argv
-		.splice( 2, process.argv.length )
+	const r = process.argv[2]
+	const t = fs.readFileSync(path.join( root, r), 'utf8')
+	const p = t.split('\n').filter(v => v.length > 0)
+	const fileList = p
 		.map( ( fileWithPath ) => {
 			return fileWithPath.replace( /^\.\//, '' );
 		} );
+
+	// const fileList = process
+	// 	.argv
+	// 	.splice( 2, process.argv.length )
+	// 	.map( ( fileWithPath ) => {
+	// 		return fileWithPath.replace( /^\.\//, '' );
+	// 	} );
 
 	if ( fileList.length === 0 ) {
 		process.stderr.write( 'You must pass a list of files to process' );

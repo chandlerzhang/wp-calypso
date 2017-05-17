@@ -77,6 +77,7 @@ COMPONENTS_PROPTYPE_FILES = $(shell \
 		-or -name 'index.js' \
 		-or -name 'example.jsx' \
 		-and -not -path '*/test/*' \
+		> tmp-proptype.txt \
 )
 
 CONFIG_FILES = $(shell \
@@ -94,7 +95,7 @@ export CALYPSO_ENV := $(CALYPSO_ENV)
 export NODE_PATH := server$(SEPARATOR)client$(SEPARATOR).
 
 #.DEFAULT_GOAL := install
-.DEFAULT_GOAL := test-file
+.DEFAULT_GOAL := server/devdocs/proptypes-index.json
 
 welcome:
 	@printf "\033[36m             _                           \n"
@@ -179,10 +180,10 @@ server/devdocs/components-usage-stats.json: $(COMPONENTS_USAGE_STATS_FILES) $(CO
 	@$(COMPONENTS_USAGE_STATS_JS) $(COMPONENTS_USAGE_STATS_FILES)
 
 server/devdocs/proptypes-index.json: $(COMPONENTS_PROPTYPE_FILES) $(COMPONENTS_PROPTYPES_JS)
-	@$(COMPONENTS_PROPTYPES_JS) $(COMPONENTS_PROPTYPE_FILES)
+	@$(COMPONENTS_PROPTYPES_JS) tmp-proptype.txt
 
 test-file: $(COMPONENTS_PROPTYPE_FILES)
-	@echo $(COMPONENTS_PROPTYPE_FILES)
+	@cat tmp-proptype.txt
 
 build-server: install
 	@mkdir -p build
