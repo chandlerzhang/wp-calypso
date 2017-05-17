@@ -12,12 +12,13 @@ const startTime = process.hrtime();
 require( 'babel-register' );
 const fs = require( 'fs' );
 const path = require( 'path' );
+const os = require( 'os' );
 const reactDocgen = require( 'react-docgen' );
 const { getPropertyName, getMemberValuePath, resolveToValue } = require( 'react-docgen/dist/utils' );
 const util = require( 'client/devdocs/docs-example/util' );
 
 const root = path.dirname( path.join( __dirname, '..', '..' ) );
-const pathSwap = new RegExp(path.sep, 'g');
+const pathSwap = new RegExp(process.platform === 'win32' ? '\\' : path.sep, 'g');
 const handlers = [ ...reactDocgen.defaultHandlers, commentHandler ];
 
 /**
