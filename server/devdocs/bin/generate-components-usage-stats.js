@@ -34,7 +34,6 @@ function main() {
 		.map( function( fileWithPath ) {
 			return fileWithPath.replace( /^\.\//, '' );
 		} );
-
 	// fileList = process.
 	// 	argv.
 	// 	splice( 2, process.argv.length ).
@@ -46,11 +45,14 @@ function main() {
 		process.stderr.write( 'You must pass a list of files to process (try "make server/devdocs/components-usage-stats.js"' );
 		process.exit( 1 );
 	}
+	console.log('config is %s', config)
 
 	if ( ! config.isEnabled( 'devdocs/components-usage-stats' ) ) {
 		saveUsageStats( {}, outFilePath );
 		process.exit( 0 );
 	}
+
+	console.log(fileList)
 
 	getModulesWithDependencies( root, fileList )
 		.then( function( modulesWithDependencies ) {
@@ -83,10 +85,12 @@ function getModulesWithDependencies( root, fileList ) {
 		async.each(
 			fileList,
 			function( fileWithPath, next ) {
+				console.log(fileWithPath)
 				fs.readFile(
 					fspath.join( root, fileWithPath ),
 					{ encoding: 'utf8' },
 					function( err, data ) {
+						console.log(data)
 						var deps;
 
 						if ( err ) {

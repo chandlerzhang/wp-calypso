@@ -145,6 +145,8 @@
   "scripts": {
     "test": "npm run test-client && npm run test-server && npm run test-test",
     "test-one": "NODE_ENV=test NODE_PATH=test:client TEST_ROOT=client node $NODE_DEBUG_OPTION test/runner.js client/lib/auth-code-request-store/test/index.js",
+    "test-one-win32": "set NODE_ENV=test&&set NODE_PATH=test;client&&set TEST_ROOT=client&&node test/runner.js client/lib/auth-code-request-store/test/index.js",
+    "test-one-win32-debug": "set NODE_ENV=test&&set NODE_PATH=test;client&&set TEST_ROOT=client&&node %NODE_DEBUG_OPTION% test/runner.js client/lib/auth-code-request-store/test/index.js",
     "test-client": "NODE_ENV=test NODE_PATH=test:client TEST_ROOT=client test/runner.js",
     "test-server": "NODE_ENV=test NODE_PATH=test:server:client TEST_ROOT=server test/runner.js",
     "test-test": "NODE_ENV=test NODE_PATH=test:client TEST_ROOT=test test/runner.js",

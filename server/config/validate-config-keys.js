@@ -48,6 +48,7 @@ const sharedConfig = parseConfig( '_shared.json' );
  */
 environmentKeys.forEach( ( [ filename, keys ] ) => {
 	keys.forEach( key => {
+		console.log(`filename is %s, key is %s`, filename, key)
 		if ( ! sharedConfig.hasOwnProperty( key ) ) {
 			console.error(
 				`${ chalk.red( 'Configuration Error' ) }\n` +

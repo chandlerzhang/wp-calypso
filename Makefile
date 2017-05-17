@@ -175,13 +175,13 @@ public/directly.css: node_modules $(SASS_FILES)
 	@$(SASS) assets/stylesheets/directly.scss $@
 	@$(AUTOPREFIXER) $@
 
-server/devdocs/search-index.js: $(MD_FILES) $(ALL_DEVDOCS_JS)
+server/devdocs/search-index.js: $(MD_FILES) $(ALL_DEVDOCS_JS) tmp-md.txt
 	@$(ALL_DEVDOCS_JS) tmp-md.txt
 
-server/devdocs/components-usage-stats.json: $(COMPONENTS_USAGE_STATS_FILES) $(COMPONENTS_USAGE_STATS_JS)
+server/devdocs/components-usage-stats.json: $(COMPONENTS_USAGE_STATS_FILES) $(COMPONENTS_USAGE_STATS_JS) tmp-component.txt
 	@$(COMPONENTS_USAGE_STATS_JS) tmp-component.txt
 
-server/devdocs/proptypes-index.json: $(COMPONENTS_PROPTYPE_FILES) $(COMPONENTS_PROPTYPES_JS)
+server/devdocs/proptypes-index.json: $(COMPONENTS_PROPTYPE_FILES) $(COMPONENTS_PROPTYPES_JS) tmp-proptype.txt
 	@$(COMPONENTS_PROPTYPES_JS) tmp-proptype.txt
 
 test-file: $(MD_FILES)
@@ -212,16 +212,16 @@ distclean: clean
 translate: node_modules
 	$(I18N_CALYPSO) --format pot --output-file ./calypso-strings.pot $(JS_FILES_FOR_TRANSLATE) -e date
 
-# install all git hooks
-githooks: githooks-commit githooks-push
-
-# install git pre-commit hook
-githooks-commit:
-	@if [ ! -e .git/hooks/pre-commit ]; then ln -s ../../bin/pre-commit .git/hooks/pre-commit; fi
-
-# install git pre-push hook
-githooks-push:
-	@if [ ! -e .git/hooks/pre-push ]; then ln -s ../../bin/pre-push .git/hooks/pre-push; fi
+## install all git hooks
+#githooks: githooks-commit githooks-push
+#
+## install git pre-commit hook
+#githooks-commit:
+#	@if [ ! -e .git/hooks/pre-commit ]; then ln -s ../../bin/pre-commit .git/hooks/pre-commit; fi
+#
+## install git pre-push hook
+#githooks-push:
+#	@if [ ! -e .git/hooks/pre-push ]; then ln -s ../../bin/pre-push .git/hooks/pre-push; fi
 
 # generate a new shrinkwrap
 shrinkwrap: node-version
@@ -255,6 +255,6 @@ FORCE:
 
 .PHONY: build build-desktop build-server
 .PHONY: run install test clean distclean translate route node-version
-.PHONY: githooks githooks-commit githooks-push analyze-bundles urn
+.PHONY: analyze-bundles urn
 .PHONY: config-defaults-lint
 .PHONY: test-files
