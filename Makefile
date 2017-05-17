@@ -111,7 +111,7 @@ welcome:
 install: node_modules
 
 # Simply running `make run` will spawn the Node.js server instance.
-run: welcome githooks install build
+run: welcome install build
 	@$(NODE) build/bundle.js
 
 dashboard: install
