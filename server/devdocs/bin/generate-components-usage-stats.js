@@ -41,11 +41,15 @@ function main() {
 	// 		return fileWithPath.replace( /^\.\//, '' );
 	// 	} );
 
+	console.log(`Build component json`)
+
 	if ( fileList.length === 0 ) {
 		process.stderr.write( 'You must pass a list of files to process (try "make server/devdocs/components-usage-stats.js"' );
 		process.exit( 1 );
 	}
 	// console.log('config is %s', config)
+
+	console.log(`config : [%s]`, config.isEnabled( 'devdocs/components-usage-stats' ))
 
 	if ( ! config.isEnabled( 'devdocs/components-usage-stats' ) ) {
 		saveUsageStats( {}, outFilePath );

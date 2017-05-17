@@ -23,7 +23,7 @@
  * @returns {*} value of property named by the key
  */
 const config = data => key => {
-	console.log( 'config data is:', data );
+	// console.log( 'config data is:', data );
 	if ( key in data ) {
 		return data[ key ];
 	}

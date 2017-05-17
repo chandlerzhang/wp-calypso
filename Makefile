@@ -96,11 +96,11 @@ export NODE_ENV := $(NODE_ENV)
 export CALYPSO_ENV := $(CALYPSO_ENV)
 export NODE_PATH := server$(SEPARATOR)client$(SEPARATOR).
 
-#.DEFAULT_GOAL := install
-.DEFAULT_GOAL := test-file
+.DEFAULT_GOAL := run
 
 welcome:
 	@printf "start ..."
+	@printf "\n"
 
 install: node_modules
 
