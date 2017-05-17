@@ -94,7 +94,7 @@ export CALYPSO_ENV := $(CALYPSO_ENV)
 export NODE_PATH := server$(SEPARATOR)client$(SEPARATOR).
 
 #.DEFAULT_GOAL := install
-.DEFAULT_GOAL := test-files
+.DEFAULT_GOAL := test-file
 
 welcome:
 	@printf "\033[36m             _                           \n"
@@ -181,7 +181,7 @@ server/devdocs/components-usage-stats.json: $(COMPONENTS_USAGE_STATS_FILES) $(CO
 server/devdocs/proptypes-index.json: $(COMPONENTS_PROPTYPE_FILES) $(COMPONENTS_PROPTYPES_JS)
 	@$(COMPONENTS_PROPTYPES_JS) $(COMPONENTS_PROPTYPE_FILES)
 
-test-files: $(COMPONENTS_PROPTYPE_FILES)
+test-file: $(COMPONENTS_PROPTYPE_FILES)
 	echo $(COMPONENTS_PROPTYPE_FILES)
 
 build-server: install
