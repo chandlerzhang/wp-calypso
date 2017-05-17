@@ -62,6 +62,7 @@ MD_FILES := $(shell \
 		-type f \
 		-name '*.md' \
 	| sed 's/ /\\ /g' \
+	> tmp-md.txt \
 )
 COMPONENTS_USAGE_STATS_FILES = $(shell \
 	find client \
@@ -96,7 +97,7 @@ export CALYPSO_ENV := $(CALYPSO_ENV)
 export NODE_PATH := server$(SEPARATOR)client$(SEPARATOR).
 
 #.DEFAULT_GOAL := install
-.DEFAULT_GOAL := server/devdocs/proptypes-index.json
+.DEFAULT_GOAL := test-file
 
 welcome:
 	@printf "\033[36m             _                           \n"
@@ -175,7 +176,7 @@ public/directly.css: node_modules $(SASS_FILES)
 	@$(AUTOPREFIXER) $@
 
 server/devdocs/search-index.js: $(MD_FILES) $(ALL_DEVDOCS_JS)
-	@$(ALL_DEVDOCS_JS) $(MD_FILES)
+	@$(ALL_DEVDOCS_JS) tmp-md.txt
 
 server/devdocs/components-usage-stats.json: $(COMPONENTS_USAGE_STATS_FILES) $(COMPONENTS_USAGE_STATS_JS)
 	@$(COMPONENTS_USAGE_STATS_JS) tmp-component.txt
@@ -183,8 +184,8 @@ server/devdocs/components-usage-stats.json: $(COMPONENTS_USAGE_STATS_FILES) $(CO
 server/devdocs/proptypes-index.json: $(COMPONENTS_PROPTYPE_FILES) $(COMPONENTS_PROPTYPES_JS)
 	@$(COMPONENTS_PROPTYPES_JS) tmp-proptype.txt
 
-test-file: $(COMPONENTS_PROPTYPE_FILES)
-	@cat tmp-proptype.txt
+test-file: $(MD_FILES)
+	@echo $(MD_FILES)
 
 build-server: install
 	@mkdir -p build
