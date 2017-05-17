@@ -18,7 +18,7 @@ const { getPropertyName, getMemberValuePath, resolveToValue } = require( 'react-
 const util = require( 'client/devdocs/docs-example/util' );
 
 const root = path.dirname( path.join( __dirname, '..', '..' ) );
-const pathSwap = new RegExp(process.platform === 'win32' ? '\\' : path.sep, 'g');
+const pathSwap = new RegExp(process.platform === 'win32' ? '\\\\' : path.posix.sep, 'g');
 const handlers = [ ...reactDocgen.defaultHandlers, commentHandler ];
 
 /**
@@ -115,8 +115,8 @@ const processFile = ( filePath ) => {
 	// console.log(`file path is %s`, filePath)
 	if(filePath.length < 1) return null;
 	const filename = path.basename( filePath );
-	const includePathRegEx = new RegExp(`^client${ path.sep }(.*?)${ path.sep }${ filename }$`);
-	const includePathSuffix = ( filename === 'index.jsx' ? '' : path.sep + path.basename( filename, '.jsx' ) );
+	const includePathRegEx = new RegExp(`^client${ path.posix.sep }(.*?)${ path.posix.sep }${ filename }$`);
+	const includePathSuffix = ( filename === 'index.jsx' ? '' : path.posix.sep + path.basename( filename, '.jsx' ) );
 	const includePath = ( includePathRegEx.exec( filePath )[1] + includePathSuffix ).replace( pathSwap, '/' ) ;
 	try {
 		const usePath = path.isAbsolute( filePath ) ? filePath : path.join( process.cwd(), filePath );
@@ -182,10 +182,10 @@ const writeFile = ( contents ) => {
 
 const main = ( () => {
 	console.log( 'Building: proptypes-index.json' );
-	const r = process.argv[2]
-	const t = fs.readFileSync(path.join( root, r), 'utf8')
-	const p = t.split('\n').filter(v => v.length > 0)
-	const fileList = p
+	const fileList = fs
+		.readFileSync(process.argv[2], 'utf8')
+		.split('\n')
+		.filter(v => v.length > 0)
 		.map( ( fileWithPath ) => {
 			return fileWithPath.replace( /^\.\//, '' );
 		} );

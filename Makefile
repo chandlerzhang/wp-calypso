@@ -70,6 +70,7 @@ COMPONENTS_USAGE_STATS_FILES = $(shell \
 		-not \( -path '*/docs-example/*' -prune \) \
 		-type f \
 		\( -name '*.js' -or -name '*.jsx' \) \
+		> tmp-component.txt \
 )
 COMPONENTS_PROPTYPE_FILES = $(shell \
 	find client \
@@ -177,7 +178,7 @@ server/devdocs/search-index.js: $(MD_FILES) $(ALL_DEVDOCS_JS)
 	@$(ALL_DEVDOCS_JS) $(MD_FILES)
 
 server/devdocs/components-usage-stats.json: $(COMPONENTS_USAGE_STATS_FILES) $(COMPONENTS_USAGE_STATS_JS)
-	@$(COMPONENTS_USAGE_STATS_JS) $(COMPONENTS_USAGE_STATS_FILES)
+	@$(COMPONENTS_USAGE_STATS_JS) tmp-component.txt
 
 server/devdocs/proptypes-index.json: $(COMPONENTS_PROPTYPE_FILES) $(COMPONENTS_PROPTYPES_JS)
 	@$(COMPONENTS_PROPTYPES_JS) tmp-proptype.txt

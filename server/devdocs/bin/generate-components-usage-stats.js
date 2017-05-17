@@ -27,12 +27,20 @@ function main() {
 	var fileList,
 		outFilePath = 'server/devdocs/components-usage-stats.json';
 
-	fileList = process.
-		argv.
-		splice( 2, process.argv.length ).
-		map( function( fileWithPath ) {
+	fileList = fs
+		.readFileSync(process.argv[2], 'utf8')
+		.split('\n')
+		.filter(v => v.length > 0)
+		.map( function( fileWithPath ) {
 			return fileWithPath.replace( /^\.\//, '' );
 		} );
+
+	// fileList = process.
+	// 	argv.
+	// 	splice( 2, process.argv.length ).
+	// 	map( function( fileWithPath ) {
+	// 		return fileWithPath.replace( /^\.\//, '' );
+	// 	} );
 
 	if ( fileList.length === 0 ) {
 		process.stderr.write( 'You must pass a list of files to process (try "make server/devdocs/components-usage-stats.js"' );
