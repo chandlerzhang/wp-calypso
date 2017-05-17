@@ -93,7 +93,8 @@ export NODE_ENV := $(NODE_ENV)
 export CALYPSO_ENV := $(CALYPSO_ENV)
 export NODE_PATH := server$(SEPARATOR)client$(SEPARATOR).
 
-.DEFAULT_GOAL := install
+#.DEFAULT_GOAL := install
+.DEFAULT_GOAL := test-files
 
 welcome:
 	@printf "\033[36m             _                           \n"
@@ -180,6 +181,9 @@ server/devdocs/components-usage-stats.json: $(COMPONENTS_USAGE_STATS_FILES) $(CO
 server/devdocs/proptypes-index.json: $(COMPONENTS_PROPTYPE_FILES) $(COMPONENTS_PROPTYPES_JS)
 	@$(COMPONENTS_PROPTYPES_JS) $(COMPONENTS_PROPTYPE_FILES)
 
+test-files: $(COMPONENTS_PROPTYPE_FILES)
+	echo $(COMPONENTS_PROPTYPE_FILES)
+
 build-server: install
 	@mkdir -p build
 	@CALYPSO_ENV=$(CALYPSO_ENV) $(NODE_BIN)/webpack --display-error-details --config webpack.config.node.js
@@ -250,3 +254,4 @@ FORCE:
 .PHONY: run install test clean distclean translate route node-version
 .PHONY: githooks githooks-commit githooks-push analyze-bundles urn
 .PHONY: config-defaults-lint
+.PHONY: test-files
