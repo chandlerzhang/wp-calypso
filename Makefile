@@ -182,7 +182,7 @@ server/devdocs/proptypes-index.json: $(COMPONENTS_PROPTYPE_FILES) $(COMPONENTS_P
 	@$(COMPONENTS_PROPTYPES_JS) $(COMPONENTS_PROPTYPE_FILES)
 
 test-file: $(COMPONENTS_PROPTYPE_FILES)
-	echo $(COMPONENTS_PROPTYPE_FILES)
+	@echo $(COMPONENTS_PROPTYPE_FILES)
 
 build-server: install
 	@mkdir -p build
